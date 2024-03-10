@@ -1,0 +1,52 @@
+{"routes" : [{
+		"id": "anything",
+        "status": true,
+		"url": "http://localhost:8080/",
+		"predicate": {
+			"path": "/partner-gateway/anything/{segment}",
+			"host": "localhost:9001",
+			"header": {
+				"X-Partner-Code": "anything"
+			}
+		},
+		"passthroughs": {
+			"POST_visitor": {
+				"filters": {
+					"PreLogging": {
+						"key": "PreLogging"
+					},
+					"RewritePath": {
+						"key": "/partner-gateway/anything/(?<segment>.*)",
+						"value": "/$\\{segment}/print"
+					},
+					"PostLogging": {
+						"key": "PostLogging"
+					},
+					"RequestBodyModification": {
+                            "args": {
+                                "templateDirectory": "/egress/airtel/templates",
+                                "templateName": "get-balance.ftl",
+                                "modificationType": "JSON_TO_JSON"
+                            }
+                        }
+				}
+			},
+			"GET_anything": {
+				"filters": {
+					"PreLogging": {
+						"key": "PreLogging"
+					},
+					"RewritePath": {
+						"key": "/partner-gateway/anything/(?<segment>.*)",
+						"value": "/$\\{segment}"
+					},
+					"PostLogging": {
+						"key": "PostLogging"
+					}
+				}
+			}
+
+		},
+		"metadata": null
+	}]
+}

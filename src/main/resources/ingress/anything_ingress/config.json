@@ -1,0 +1,47 @@
+{
+    "routes": [
+        {
+            "id": "anything",
+            "status": true,
+            "url": "https://httpbun.org/",
+            "predicate": {
+                "path": "/merchant-gateway/anything/{segment}",
+                "host": "ae27f946bd15442e7b3ce488ccda1782-250882046.ap-northeast-1.elb.amazonaws.com",
+                "header": {
+                    "X-Partner-Code": "anything"
+                }
+            },
+            "passthroughs": {
+                "POST_anything": {
+                    "filters": {
+                        "PreLogging": {
+                            "key": "PreLogging"
+                        },
+                        "RewritePath": {
+                            "key": "/merchant-gateway/anything/(?<segment>.*)",
+                            "value": "/$\\{segment}"
+                        },
+                        "PostLogging": {
+                            "key": "PostLogging"
+                        }
+                    }
+                },
+                "GET_anything": {
+                    "filters": {
+                        "PreLogging": {
+                            "key": "PreLogging"
+                        },
+                        "RewritePath": {
+                            "key": "/merchant-gateway/anything/(?<segment>.*)",
+                            "value": "/$\\{segment}"
+                        },
+                        "PostLogging": {
+                            "key": "PostLogging"
+                        }
+                    }
+                }
+            },
+            "metadata": null
+        }
+    ]
+}

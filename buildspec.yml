@@ -1,0 +1,15 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: corretto17
+  build:
+    commands:
+      - mvn package
+  post_build:
+    command:
+      - mv target/partner-gateway.jar ./
+artifacts:
+  files:
+    - target/partner-gateway.jar
+  discard-paths: yes
